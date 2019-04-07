@@ -36,6 +36,22 @@ func eval(a, b int, op string) (int, error) {
 	}
 }
 
+
+// Demo
+func contrast(a, b int, option string) (bool bool, err error)  {
+	switch option {
+	case ">":
+		return a > b, nil
+	case "=":
+		return a == b, nil
+	case "<":
+		return a < b, nil
+	default:
+		return false, fmt.Errorf("params error.")
+	}
+}
+
+
 // 两个返回值的三种写法
 // 1.
 // 13 / 3 = 4 ... 1

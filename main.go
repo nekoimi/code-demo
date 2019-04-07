@@ -1,7 +1,5 @@
 package main
 
-import "./pack04"
-
 func main(){
 
 	//var nums = []int {1,8,9,5,6,1,5,2,6,4,7,5,5}
@@ -20,10 +18,10 @@ func main(){
 	//result := pack03.ArrayFind(arr, 10)
 	//println(result)
 
-	arr1 := []int {
-		1,2,3,4,5,6,7,8,
-	}
-	result := pack04.BinarySearch(arr1, 6)
-	println(result)
+	//arr1 := []int {
+	//	1,2,3,4,5,6,7,8,
+	//}
+	//result := pack04.BinarySearch(arr1, 6)
+	//println(result)
 
 }

@@ -1,5 +1,9 @@
 package main
 
+import (
+	"./pack09"
+)
+
 func main(){
 
 	//var nums = []int {1,8,9,5,6,1,5,2,6,4,7,5,5}
@@ -23,5 +27,27 @@ func main(){
 	//}
 	//result := pack04.BinarySearch(arr1, 6)
 	//println(result)
+
+	//pack07.TestSlice()
+	//pack07.TestMap()
+	//pack07.TestUser()
+	//
+	//var myInt pack07.MyInt
+	//myInt.TestFunc()
+	//
+	//var user pack07.User
+	//user.Username = "demo100"
+	//fmt.Println(user.ToString())
+	//
+	//var printer pack07.Printer
+	//printer = user
+	//fmt.Println(printer.Print())
+	//
+	//var object pack07.Object = user
+	//fmt.Println(object)
+
+	// pack08.StartTask()
+
+	pack09.TestChannel()
 
 }

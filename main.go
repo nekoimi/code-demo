@@ -1,8 +1,6 @@
 package main
 
-import (
-	"./pack09"
-)
+import "./pack10"
 
 func main(){
 
@@ -48,6 +46,8 @@ func main(){
 
 	// pack08.StartTask()
 
-	pack09.TestChannel()
+	//pack09.TestChannel()
+
+	pack10.Test()
 
 }

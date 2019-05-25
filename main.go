@@ -1,6 +1,6 @@
 package main
 
-import "./pack10"
+import "./pack12"
 
 func main(){
 
@@ -43,11 +43,8 @@ func main(){
 	//
 	//var object pack07.Object = user
 	//fmt.Println(object)
-
 	// pack08.StartTask()
-
 	//pack09.TestChannel()
-
-	pack10.Test()
-
+	//pack10.Test()
+	pack12.LinkMain()
 }

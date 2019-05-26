@@ -1,6 +1,6 @@
 package main
 
-import "./pack14"
+import "./pack22"
 
 func main(){
 	//var nums = []int {1,8,9,5,6,1,5,2,6,4,7,5,5}
@@ -38,5 +38,17 @@ func main(){
 	//pack10.Test()
 	//pack12.LinkMain()
 	//pack13.ListMain()
-	pack14.Pack14Man()
+	//pack14.Pack14Man()
+	//pack16.Pack16Main()
+	//pack17.Pack17Main()
+	//pack18.Pack18Main()
+	//fmt.Println("running...")
+	//go pack19.Pack19Main()
+	//time.Sleep(1)
+	//pack20.Pack20()
+	//pack20.Pack20MD5()
+	//pack20.Pack20SHA256()
+	//pack21.Pack21HttpServer()
+	//pack22.Pack22()
+	pack22.Pack22Select()
 }

@@ -1,6 +1,6 @@
 package main
 
-import "./pack22"
+import "./pack23"
 
 func main(){
 	//var nums = []int {1,8,9,5,6,1,5,2,6,4,7,5,5}
@@ -50,5 +50,6 @@ func main(){
 	//pack20.Pack20SHA256()
 	//pack21.Pack21HttpServer()
 	//pack22.Pack22()
-	pack22.Pack22Select()
+	//pack22.Pack22Select()
+	pack23.Pack23Main()
 }

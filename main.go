@@ -1,7 +1,5 @@
 package main
 
-import "./pack23"
-
 func main(){
 	//var nums = []int {1,8,9,5,6,1,5,2,6,4,7,5,5}
 	//var result []int = pack01.TwoSum1(nums, 10)
@@ -51,5 +49,10 @@ func main(){
 	//pack21.Pack21HttpServer()
 	//pack22.Pack22()
 	//pack22.Pack22Select()
-	pack23.Pack23Main()
+	//pack23.Pack23Main()
+	//pack24.Pack24Array()
+	//pack24.Pack24Slice()
+	//pack24.Pack24Slice2()
+	//pack24.Pack24Map()
+	//pack24.PackMap2()
 }

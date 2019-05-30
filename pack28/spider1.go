@@ -8,7 +8,7 @@ import (
 )
 
 func main () {
-	response, err := http.Get("https://www.dsndsht23.com/forum-103-1.html")
+	response, err := http.Get("https://www. .com/forum-103-1.html")
 	if err != nil {
 		panic(err)
 	}

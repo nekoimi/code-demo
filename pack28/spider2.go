@@ -22,7 +22,7 @@ func main()  {
 		panic(err)
 	}
 
-	re := regexp.MustCompile(`<div class="g-list" data-v-[a-zA-Z0-9]+>.*</div>`)
+	re := regexp.MustCompile(`<div class="g-list" data-v-[a-zA-Z0-9]+>.*[^<]+</div>`)
 	res := re.FindAllString(string(bys), 1)
 	if len(res) <= 0 {
 		fmt.Println("not data.")

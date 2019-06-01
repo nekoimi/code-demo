@@ -1,12 +1,11 @@
 package parser
 
 import (
-	"../../engine"
-	"errors"
-	"fmt"
-	"regexp"
-	"../../fetcher"
 	"../../conf"
+	"../../engine"
+	"../../fetcher"
+	"errors"
+	"regexp"
 )
 
 const clearHtmlRegex = `\s{2,}`
@@ -23,7 +22,6 @@ func ParseGoodList(content []byte) engine.ParseResult {
 	for _, match := range res {
 		url, itemName, itemErr := parseGoodListItem(match)
 		if itemErr != nil {
-			fmt.Println(itemErr)
 			continue
 		}
 		result.Items = append(result.Items, itemName)
@@ -47,7 +45,7 @@ func parseGoodListItem(html string) (string, string,error) {
 		resItem = reOne.FindStringSubmatch(html)
 	}
 	if len(resItem) < 3 {
-		return "", "", errors.New("Good item not found.")
+		return "", "", errors.New("Goods item not found.")
 	}
 
 	return conf.RootUrl + resItem[1], string(resItem[3]), nil

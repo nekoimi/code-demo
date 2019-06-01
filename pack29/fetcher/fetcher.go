@@ -4,6 +4,7 @@ import (
 	"../conf"
 	"errors"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"net/http"
 	"regexp"
@@ -13,6 +14,7 @@ import (
 
 // Download Html
 func Fetch(url string) ([]byte ,error)  {
+	log.Printf("Fetching Url ===> %v \n", url)
 	client := http.Client{}
 	request, reqErr := http.NewRequest("GET", url, nil)
 	if reqErr != nil {

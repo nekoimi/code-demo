@@ -1,8 +1,10 @@
 package main
 
 import (
+	"./contract"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"time"
 )
 
 var (
@@ -14,28 +16,31 @@ var (
 )
 
 // Handler
-func webSocketHandler(response http.ResponseWriter, request *http.Request)  {
+func webSocketHandler(response http.ResponseWriter, request *http.Request) {
 	var (
-		conn *websocket.Conn
-		wsErr error
-		data []byte
+		wsConn *websocket.Conn
+		wsErr  error
 	)
-	if conn, wsErr = upgrader.Upgrade(response, request, nil); wsErr != nil {
+	if wsConn, wsErr = upgrader.Upgrade(response, request, nil); wsErr != nil {
 		return
 	}
 
+	conn := contract.InitConnection(wsConn)
+
+	go func() {
+		for  {
+			conn.WriteMessage([]byte("heartbeat"))
+			time.Sleep(time.Second)
+		}
+	}()
+
 	for  {
-		if _, data, wsErr = conn.ReadMessage(); wsErr != nil {
-			goto WSERR
-		}
-		if wsErr = conn.WriteMessage(websocket.TextMessage, data); wsErr != nil {
-			goto WSERR
-		}
+		data := conn.ReadMessage()
+		conn.WriteMessage(data)
 	}
 
-WSERR:
-	conn.Close()
 }
+
 
 func main()  {
 	http.HandleFunc("/ws", webSocketHandler)

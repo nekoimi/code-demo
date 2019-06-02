@@ -3,7 +3,6 @@ package parser
 import (
 	"../../engine"
 	"../../fetcher"
-	"log"
 	"regexp"
 	"strconv"
 )
@@ -21,8 +20,9 @@ func ParseGoodDetails(content []byte) engine.ParseResult {
 	// Title
 	titleRe := regexp.MustCompile(goodTitleRegex)
 	titleRes := titleRe.FindStringSubmatch(html)
-	goods.Title = titleRes[1]
-	log.Printf("%s \n", goods.Title)
+	if len(titleRes) >= 2 {
+		goods.Title = titleRes[1]
+	}
 	// Price
 	priceRe := regexp.MustCompile(goodPriceRegex)
 	priceRes := priceRe.FindStringSubmatch(html)

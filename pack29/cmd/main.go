@@ -3,20 +3,22 @@ package main
 import (
 	"../engine"
 	"../meilele/parser"
+	"../persist"
 	"../scheduler"
 	"strconv"
 )
 
-func main()  {
+func main() {
 	e := engine.ConcurrentEngine{
-		Scheduler: &scheduler.SimpleScheduler{},
-		WorkerCount: 100,
+		Scheduler:   &scheduler.QueuedScheduler{},
+		ItemChan: persist.ItemServer(),
+		WorkerCount: 10,
 	}
 
 	var requests []engine.Request
-	for i := 1; i < 47 ; i++  {
+	for i := 1; i < 47; i++ {
 		requests = append(requests, engine.Request{
-			Url: "https://www.meilele.com/category-keting/list-p"+strconv.Itoa(i)+"/?from=page",
+			Url:       "https://www.meilele.com/category-keting/list-p" + strconv.Itoa(i) + "/?from=page",
 			ParseFunc: parser.ParseGoodList,
 		})
 	}

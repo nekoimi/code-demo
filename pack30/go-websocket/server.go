@@ -4,7 +4,7 @@ import (
 	"./contract"
 	"github.com/gorilla/websocket"
 	"net/http"
-	"time"
+	"strconv"
 )
 
 var (
@@ -27,12 +27,10 @@ func webSocketHandler(response http.ResponseWriter, request *http.Request) {
 
 	conn := contract.InitConnection(wsConn)
 
-	go func() {
-		for  {
-			conn.WriteMessage([]byte("heartbeat"))
-			time.Sleep(time.Second)
-		}
-	}()
+	if _, ok := contract.Users[wsConn]; !ok {
+		count := len(contract.Users) + 1
+		contract.Users[wsConn] = "匿名用户_" + strconv.Itoa(count);
+	}
 
 	for  {
 		data := conn.ReadMessage()

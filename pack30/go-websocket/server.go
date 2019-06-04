@@ -3,6 +3,7 @@ package main
 import (
 	"./contract"
 	"github.com/gorilla/websocket"
+	"html/template"
 	"net/http"
 	"strconv"
 )
@@ -39,8 +40,14 @@ func webSocketHandler(response http.ResponseWriter, request *http.Request) {
 
 }
 
+func mainHandler(response http.ResponseWriter, request *http.Request)  {
+	t, _ := template.ParseFiles("D:/workspace/golang/GoLeaN/pack30/message.html")
+	_ = t.Execute(response, nil)
+}
+
 
 func main()  {
+	http.HandleFunc("/", mainHandler)
 	http.HandleFunc("/ws", webSocketHandler)
-	http.ListenAndServe("127.0.0.1:8000", nil)
+	_ = http.ListenAndServe("0.0.0.0:8000", nil)
 }

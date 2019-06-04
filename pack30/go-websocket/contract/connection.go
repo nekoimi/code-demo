@@ -65,7 +65,7 @@ func (conn *Connection) WriteLoop()  {
 		data := <- conn.out
 		go func() {
 			for keyConn := range Users {
-				err := keyConn.WriteMessage(websocket.TextMessage, data)
+				err := keyConn.WriteMessage(websocket.TextMessage, []byte(data))
 				if err != nil {
 					log.Printf("WriteLoop Error : %v \n", err)
 					_ = conn.Close()

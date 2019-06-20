@@ -41,7 +41,7 @@ func webSocketHandler(response http.ResponseWriter, request *http.Request) {
 }
 
 func mainHandler(response http.ResponseWriter, request *http.Request)  {
-	t, _ := template.ParseFiles("D:/workspace/golang/GoLeaN/pack30/message.html")
+	t, _ := template.ParseFiles("./message.html")
 	_ = t.Execute(response, nil)
 }
 

@@ -96,3 +96,59 @@ $this->app->bind('db.connection', function ($app) {
 还有其他的数据库类型支持: Postgres、SqlServer、SQLite
 
 详细请自行查看源代码
+
+### 实践
+
+知道了基本的运行情况，我们来实际跑一下
+
+创建数据库:
+
+- 数据库名称叫 `demo`
+
+```sql
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(255) NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+```
+
+创建完成之后的效果
+
+![20190623230011.png](https://i.loli.net/2019/06/23/5d0f94039a20865980.png)
+
+- 使用该database包
+
+首先是配置文件, 这个配置文件是不是很熟悉 ???
+
+```php
+$databaseConfig = array(
+    'driver'    => 'mysql',
+    'host'      => '127.0.0.1',
+    'port'      => 3306,
+    'database'  => 'demo',
+    'username'  => 'root',
+    'password'  => 'root',
+    'charset'   => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'prefix'    => '',
+    'timezone'  => '+08:00',
+    'strict'    => true,
+);
+```
+
+接着来创建数据库对象, 将上面的配置文件传进去
+
+```php
+require_once '../../vendor/autoload.php';
+
+$connectionFactory = new \Illuminate\Database\Connectors\ConnectionFactory(
+    new \Illuminate\Container\Container()
+);
+$connection = $connectionFactory->make($databaseConfig);
+```
+
+具体操作类似
+
+![20190623231132.png](https://i.loli.net/2019/06/23/5d0f96c3b9f2320990.png)

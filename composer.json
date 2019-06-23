@@ -1,8 +1,8 @@
 {
     "require-dev": {
-        "eaglewu/swoole-ide-helper": "dev-master"
     },
     "require": {
-        "symfony/asset": "^3.4"
+        "symfony/asset": "^3.4",
+        "illuminate/database": "^5.8"
     }
 }

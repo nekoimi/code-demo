@@ -151,4 +151,4 @@ $connection = $connectionFactory->make($databaseConfig);
 
 具体操作类似
 
-![20190623231132.png](https://i.loli.net/2019/06/23/5d0f96c3b9f2320990.png)
+![3231132.png](https://i.loli.net/2019/06/23/5d0f96c3b9f2320990.png)

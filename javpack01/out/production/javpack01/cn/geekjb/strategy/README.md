@@ -21,31 +21,53 @@
 ```java
 package cn.geekjb.strategy;
 
+import cn.geekjb.Contract.EatContract;
+import cn.geekjb.Contract.SleepContract;
+
 public abstract class People {
-    
+
+    EatContract eatContract;
+    SleepContract sleepContract;
+
     public People(){
     }
-    
+
     public void SayHello () {
         System.out.println("Hello ~");
     }
-    
+
     public abstract void display();
 
     public void swim() {
         System.out.println("swim ~");
     }
 
+    public void eat() {
+        eatContract.eat();
+    }
+
+    public void sleep() {
+        sleepContract.sleep();
+    }
+
 }
 ```
 
 
-子类:
+子类一:
 
 ```java
 package cn.geekjb.strategy;
 
+import cn.geekjb.Contract.DemoEat;
+import cn.geekjb.Contract.DemoSleep;
+
 public class Boy extends People {
+
+    public Boy () {
+        eatContract = new DemoEat();
+        sleepContract = new DemoSleep();
+    }
 
     @Override
     public void display() {
@@ -55,7 +77,7 @@ public class Boy extends People {
 }
 ```
 
-子类:
+子类二:
 
 ```java
 package cn.geekjb.strategy;
@@ -67,6 +89,36 @@ public class Girl extends People {
         System.out.println("Girl display...");
     }
 
+}
+```
+
+接口定义与实现:
+
+```java
+public interface EatContract {
+
+    void eat();
+
+}
+
+public class DemoEat implements EatContract {
+    @Override
+    public void eat() {
+        System.out.println("Eat...");
+    }
+}
+
+public interface SleepContract {
+
+    void sleep();
+
+}
+
+public class DemoSleep implements SleepContract {
+    @Override
+    public void sleep() {
+        System.out.println("Sleep...");
+    }
 }
 ```
 

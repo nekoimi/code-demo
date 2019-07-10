@@ -1,8 +1,17 @@
 {
     "require-dev": {
+        "swoft/swoole-ide-helper": "^4.3"
     },
     "require": {
+        "php": ">=7.3",
         "symfony/asset": "^3.4",
-        "illuminate/database": "^5.8"
+        "illuminate/database": "^5.8",
+        "symfony/cache": "^4.3"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
     }
 }

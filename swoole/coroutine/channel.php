@@ -19,7 +19,7 @@
  *
  * - 支持多生产者协程和多消费者协程
  */
-$chan = new Chan();
+$chan = new \Swoole\Coroutine\Channel();
 
 go(function () use ($chan) {
     while (true) {

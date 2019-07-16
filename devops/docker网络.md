@@ -1,15 +1,8 @@
-# Docker 网络 ==> Bridge
-
-
-docker 默认的虚拟网卡 `docker0`
-
-所有的网络都使用docker0网络， 除非你在使用docker run --net指定其他选项
-
-![20190716131052.png](https://i.loli.net/2019/07/16/5d2d5c7d1e53a87181.png)
-
-所有的docker容器都使用这个docker0的网卡
+# Docker 网络
 
 查看docker的网络
+
+默认的三个网络
 
 ```bash
 docker network list
@@ -24,6 +17,20 @@ docker network list
 docker network inspect 91aa6b806110
 ```
 
+![20190716131052.png](https://i.loli.net/2019/07/16/5d2d5c7d1e53a87181.png)
+
+
+docker 默认的虚拟网卡 `docker0`
+
+所有的网络都使用docker0网络， 除非你在使用docker run --net指定其他选项
+
+
+- bridge 网络表示所有 Docker 安装中都存在的 docker0 网络。除非使用 docker run --net=<NETWORK>选项另行指定，否则 Docker 守护进程默认情况下会将容器连接到此网络。在主机上使用 ifconfig命令，可以看到此网桥是主机的网络堆栈的一部分。
+
+- host 网络在主机网络堆栈上添加一个容器。您可以发现，容器中的网络配置与主机相同。
+
+- none 网络在一个特定于容器的网络堆栈上添加了一个容器。该容器缺少网络接口。
+
 ### 两个容器之间的通信
  
 先跑两个容器：
@@ -34,7 +41,7 @@ docker network inspect 91aa6b806110
  
 在一个Docker容器内部可以访问其他的容器地址
 
-链接都是基于 docker 
+链接都是基于 docker
  
 ### 容器如何访问外网
 
@@ -42,4 +49,14 @@ docker network inspect 91aa6b806110
 
 再经过链路层的时候需要将逻辑地址转换成本地主机的网卡物理地址
 
-这里使用的就是ARP（网络地址转换）
+使用ARP（网络地址转换协议）来转换局域网的ip地址和物理地址
+
+容器里面的数据包要想访问外网也需要这样的一个地址转换装置
+
+在docker网络中 Bridge 模式下会将 docker0 的地址转换成我们本机的网卡地址
+
+数据包就相当于是基于我们本机的物理网卡发出
+
+实现这个地址转换的就是 iptables
+
+添加一个容器，会在iptables中添加一条记录，不信可以试试

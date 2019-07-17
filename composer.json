@@ -6,7 +6,9 @@
         "php": ">=7.3",
         "symfony/asset": "^3.4",
         "illuminate/database": "^5.8",
-        "symfony/cache": "^4.3"
+        "symfony/cache": "^4.3",
+        "ext-sockets": "*",
+        "ext-pcntl": "*"
     },
     "repositories": {
         "packagist": {

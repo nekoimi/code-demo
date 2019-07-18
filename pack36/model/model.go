@@ -24,5 +24,5 @@ func (user *BaseUser) CheckStatus() error {
 
 // 自动更改更新时间
 func (user *BaseUser) AutoUpdateAt()  {
-	user.UpdatedAt = time.Now().String()
+	user.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
 }

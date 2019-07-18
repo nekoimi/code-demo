@@ -13,10 +13,10 @@ func UploadHandler(responseWriter http.ResponseWriter, request *http.Request) {
 		// 返回html页面
 		data, err := ioutil.ReadFile("./static/view/index.html")
 		if err != nil {
-			io.WriteString(responseWriter, "server error.")
+			_, _ = io.WriteString(responseWriter, "server error.")
 			return
 		}
-		io.WriteString(responseWriter, string(data))
+		_, _ = io.WriteString(responseWriter, string(data))
 	} else if request.Method == "POST" {
 		// 接受文件保存到本地
 		file, head, err := request.FormFile("file")
@@ -39,6 +39,6 @@ func UploadHandler(responseWriter http.ResponseWriter, request *http.Request) {
 			return
 		}
 
-		io.WriteString(responseWriter, "Upload success.")
+		_, _ = io.WriteString(responseWriter, "Upload success.")
 	}
 }

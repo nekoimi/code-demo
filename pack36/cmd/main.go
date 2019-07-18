@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	. "golearn/pack35/conf"
+	. "golearn/pack36/conf"
 	"time"
 )
 

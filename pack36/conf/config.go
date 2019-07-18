@@ -20,17 +20,17 @@ func NewMysql() DbWorker {
 		// user:password@/dbname
 		// user:password@tcp([de:ad:be:ef::ca:fe]:80)/dbname
 		var dsnstr strings.Builder
-		dsnstr.WriteString(conf.GetUserName())
+		dsnstr.WriteString(GetUserName())
 		dsnstr.WriteString(":")
-		dsnstr.WriteString(conf.GetPassWord())
+		dsnstr.WriteString(GetPassWord())
 		dsnstr.WriteString("@tcp(")
-		dsnstr.WriteString(conf.GetHost())
+		dsnstr.WriteString(GetHost())
 		dsnstr.WriteString(":")
-		dsnstr.WriteString(strconv.Itoa(conf.GetPort()))
+		dsnstr.WriteString(strconv.Itoa(GetPort()))
 		dsnstr.WriteString(")/")
-		dsnstr.WriteString(conf.GetDbName())
+		dsnstr.WriteString(GetDbName())
 		dsnstr.WriteString("?charset=")
-		dsnstr.WriteString(conf.GetCharset())
+		dsnstr.WriteString(GetCharset())
 		return dsnstr.String()
 	}
 	var mysql = MysqlConfig{
@@ -46,6 +46,6 @@ func NewMysql() DbWorker {
 		dsn:makeDsn(mysql),
 		Db:nil,
 	}
-	dbWorker.Db, _ = sql.Open(mysql.GetDriver(), dbWorker.dsn)
+	dbWorker.Db, _ = sql.Open(GetDriver(), dbWorker.dsn)
 	return dbWorker
 }

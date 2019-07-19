@@ -3,8 +3,6 @@ package conf
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"strconv"
-	"strings"
 )
 
 type DbWorker struct {
@@ -13,26 +11,6 @@ type DbWorker struct {
 }
 
 func NewMysql() DbWorker {
-	var makeDsn = func(conf MysqlConfig) string {
-		// 支持下面几种DSN写法，具体看mysql服务端配置，常见为第1种
-		// user:password@tcp(localhost:5555)/dbname?charset=utf8
-		// user@unix(/path/to/socket)/dbname?charset=utf8
-		// user:password@/dbname
-		// user:password@tcp([de:ad:be:ef::ca:fe]:80)/dbname
-		var dsnstr strings.Builder
-		dsnstr.WriteString(conf.GetUserName())
-		dsnstr.WriteString(":")
-		dsnstr.WriteString(conf.GetPassWord())
-		dsnstr.WriteString("@tcp(")
-		dsnstr.WriteString(conf.GetHost())
-		dsnstr.WriteString(":")
-		dsnstr.WriteString(strconv.Itoa(conf.GetPort()))
-		dsnstr.WriteString(")/")
-		dsnstr.WriteString(conf.GetDbName())
-		dsnstr.WriteString("?charset=")
-		dsnstr.WriteString(conf.GetCharset())
-		return dsnstr.String()
-	}
 	var mysql = MysqlConfig{
 		"mysql",
 		"192.168.1.186",
@@ -43,7 +21,7 @@ func NewMysql() DbWorker {
 		"utf8mb4",
 	}
 	var dbWorker = DbWorker{
-		dsn:makeDsn(mysql),
+		dsn: mysql.GetDsnString(),
 		Db:nil,
 	}
 	dbWorker.Db, _ = sql.Open(mysql.GetDriver(), dbWorker.dsn)

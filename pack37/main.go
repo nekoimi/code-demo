@@ -1,7 +1,7 @@
 package main
 
 import (
-	template2 "html/template"
+	"html/template"
 	"log"
 	"net/http"
 	"time"
@@ -10,12 +10,12 @@ import (
 func main()  {
 	app := http.NewServeMux()
 	app.HandleFunc("/", func(responseWriter http.ResponseWriter, request *http.Request) {
-		template, err := template2.ParseFiles("templates/layout.html", "templates/index.html")
+		tpl, err := template.ParseFiles("templates/layout.html", "templates/index.html")
 		if err != nil {
 			log.Println(err.Error())
 			return
 		}
-		template.Execute(responseWriter, "Hello World.")
+		tpl.Execute(responseWriter, "Hello World." + request.Method)
 	})
 	server := &http.Server{
 		Addr: ":8001",

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0; padding: 0;}
+    </style>
+</head>
+<body>
+<div style="margin: 0 auto;width: 1200px;">
+    <div style="width: 300px;height: 400px;border:solid black 1px;float: left">
+        <center><h3 style="border:solid black 1px;">WebSocket Demo!</h3></center>
+        <table>
+            <tr>
+                <td>
+                    <button id="btn-open" style="width: 120px;height: 50px;">Open</button>
+                    <button id="btn-close" style="width: 120px;height: 50px;">Close</button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea id="input-txt" style="width: 295px;box-sizing: border-box;font-size: 16px;" rows="12" placeholder="输入一些内容..."></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="btn-send" style="width: 120px;height: 50px;">Send</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div style="border:solid black 1px;width: 900px;height: 400px;margin: 0 auto 0 300px;">
+        <div id="outbox" style="width: 700px;height: 400px;float: left;overflow: scroll"></div>
+        <div><button id="clear-txt" style="width: 120px;height: 50px;margin: 35px;">Clear</button></div>
+    </div>
+</div>
+</body>
+<script>
+    window.onload = function () {
+        var server_url = "ws://192.168.1.186:8002?uid=demo001";
+        var ws = null;
+        var outbox = document.querySelector("#outbox");
+
+        function writeContent(content) {
+            var insert = document.createElement("p");
+            insert.style.wordWrap = "break-word";
+            insert.innerHTML = content;
+            outbox.appendChild(insert);
+        }
+
+        function newWebsocket() {
+            if (ws !== null) {
+                return;
+            }
+
+            ws = new WebSocket(server_url);
+
+            ws.onopen = function (e) {
+                heartCheck.reset().start();
+                writeContent(`<p style="color: green; border:solid black 1px;"><b>Open websocket conn!</b></p>`)
+            };
+            ws.onmessage = function (e) {
+                heartCheck.reset().start();
+                writeContent(`<p style="color: dodgerblue; border:solid black 1px;"><b>Message : </b> ${e.data}</p>`)
+            };
+            ws.onerror = function (e) {
+                writeContent(`<p style="color: red; border:solid black 1px;"><b>Error : </b> ${e.data}</p>`)
+                ws = null;
+            };
+            ws.onclose = function (e) {
+                writeContent(`<p style="border:solid black 1px;"><b>Close websocket conn! </b> </p>`)
+                ws = null;
+            };
+        }
+
+        document.querySelector("#btn-open").addEventListener("click", function () {
+            newWebsocket()
+        });
+        document.querySelector("#btn-close").addEventListener("click", function () {
+            if (ws !== null) {
+                ws.close();
+                ws = null;
+            }
+        });
+        document.querySelector("#btn-send").addEventListener("click", function () {
+            let content = document.querySelector("#input-txt").value.toString().trim();
+            if (content !== "" &&
+                content.length > 0 &&
+                ws !== null
+            ) {
+                ws.send(JSON.stringify({
+                    uid: 'demo002',
+                    message: content
+                }));
+            }
+        });
+        document.querySelector("#clear-txt").addEventListener("click", function () {
+            outbox.innerHTML = "";
+        });
+
+        var heartCheck = {
+            timeout: 30 * 1000,
+            timer: null,
+            reset: function () {
+                clearInterval(this.timer);
+                return this;
+            },
+            start: function () {
+                this.timer = setInterval(() => {
+                    if (ws.readyState === 1) {
+                        console.log('ping.');
+                        ws.send('');
+                        heartCheck.reset().start()
+                    } else {
+                        console.log('连接已经断开，重新连接')
+                    }
+                }, this.timeout)
+            }
+        }
+
+        window.onbeforeunload = function () {
+            ws.close();
+        }
+    }
+</script>
+</html>

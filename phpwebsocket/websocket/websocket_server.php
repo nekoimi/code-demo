@@ -13,20 +13,44 @@ $table->create();
 
 $server->table = $table;
 
-$server->on('open', function (\Swoole\WebSocket\Server $server, \Swoole\Http\Request $request) {
-    echo 'websocket open.' . PHP_EOL;
+/**
+ *      *  事件列表
+ *
+ *  * onStart
+ *  * onShutdown
+ *  * onWorkerStart
+ *  * onWorkerStop
+ *  * onTimer
+ *  * onConnect
+ *  * onReceive
+ *  * onClose
+ *  * onTask
+ *  * onFinish
+ *  * onPipeMessage
+ *  * onWorkerError
+ *  * onManagerStart
+ *  * onManagerStop
+ *  WebSocket
+ *  * onOpen
+ *  * onHandshake
+ *  * onMessage
+ */
+
+$server->on('open', function (\Swoole\WebSocket\Server $server, \Swoole\Http\Request $request) use ($table) {
+    echo 'WebSocket open.' . PHP_EOL;
+    var_dump($table);
     if (isset($request->get['uid'])) {
         $uid = $request->get['uid'];
         $server->table->set($uid, array (
             'uid'   =>  $uid,
             'fd'    =>  $request->fd
         ));
-        var_dump($server->table);
+//        var_dump($server->table);
     }
 });
 
 $server->on('message', function (\Swoole\WebSocket\Server $server, \Swoole\WebSocket\Frame $frame) {
-    echo 'websocket message.' . PHP_EOL;
+    echo 'WebSocket message.' . PHP_EOL;
     $msg = json_decode($frame->data, true);
     print_r($msg);
     $user = $server->table->get($msg['uid']);

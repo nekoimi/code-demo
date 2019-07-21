@@ -1,0 +1,24 @@
+{
+    "name": "yprisoner/phpwebsocket",
+    "description": "php websocket demo.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yprisoner",
+            "email": "yyprisoner@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Service\\": "service",
+            "Handler\\": "handler"
+        },
+        "files": []
+    },
+    "require-dev": {
+        "eaglewu/swoole-ide-helper": "dev-master"
+    }
+}

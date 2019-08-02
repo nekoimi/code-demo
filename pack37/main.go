@@ -15,7 +15,11 @@ func main()  {
 			log.Println(err.Error())
 			return
 		}
-		tpl.Execute(responseWriter, "Hello World." + request.Method)
+		err = tpl.Execute(responseWriter, "Hello World."+request.Method)
+		if err != nil {
+			log.Println(err.Error())
+			return
+		}
 	})
 	server := &http.Server{
 		Addr: ":8001",

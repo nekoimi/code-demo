@@ -3,7 +3,7 @@
 /**
  * 间隔的时间 -> 跟 js 里面的 setInterval 函数一样
  *
- * 可以用来代替 Linux 的 Crontab  [ 分 时 日 月 周 ]
+ * 可以用来代替 linux 的 Crontab  [ 分 时 日 月 周 ]
  *
  * Swoole 却可以精确到毫秒!
  */
